@@ -25,5 +25,29 @@ def part1(f: TextIOWrapper):
     print(total)
 
 
+def part2(f: TextIOWrapper):
+    line = f.readline()
+    time = 0
+    distance = 0
+    while line:
+        match line.split():
+            case ["Time:", *objects]:
+                time = int("".join(objects))
+            case ["Distance:", *objects]:
+                distance = int("".join(objects))
+        line = f.readline()
+    start = 0
+    end = 0
+    for t in range(time):
+        if t * (time - t) > distance:
+            start = t
+            break
+    for t in range(time, 0, -1):
+        if t * (time - t) > distance:
+            end = t
+            break
+    print(end - start + 1)
+
+
 with open("day6.txt", "r") as f:
-    part1(f)
+    part2(f)
