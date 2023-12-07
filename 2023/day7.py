@@ -1,7 +1,7 @@
 from io import TextIOWrapper
 from collections import Counter
 
-cards_name = ["A", "K", "Q", "J", "T", "9", "8", "7", "6", "5", "4", "3", "2"]
+cards_name = ["A", "K", "Q", "T", "9", "8", "7", "6", "5", "4", "3", "2", "J"]
 cards_mapped = {cards_name[len(cards_name) - i - 1]: i for i in range(len(cards_name))}
 
 
@@ -10,7 +10,16 @@ def part1(f: TextIOWrapper):
     types = [[] for _ in range(7)]
     while line:
         [cards, bid] = line.split()
-        match sorted(Counter(cards).values(), reverse=True):
+        joker_cards = cards
+        if "J" in cards:
+            common = Counter(cards).most_common(2)
+            joker = "J"
+            if common[0][0] == "J" and len(common) > 1:
+                joker = common[1][0]
+            else:
+                joker = common[0][0]
+            joker_cards = joker_cards.replace("J", joker)
+        match sorted(Counter(joker_cards).values(), reverse=True):
             case [5]:
                 types[0].append([cards, int(bid)])
             case [4, 1]:
