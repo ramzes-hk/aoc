@@ -51,9 +51,7 @@ def part1(f: TextIOWrapper):
     flat_types = []
     for t in types:
         flat_types.extend(t)
-    total = 0
-    for i, cards in enumerate(reversed(flat_types)):
-        total += cards[1] * (i + 1)
+    total = sum(cards[1] * (i + 1) for i, cards in enumerate(reversed(flat_types)))
     print(total)
 
 
