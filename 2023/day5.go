@@ -37,7 +37,9 @@ func main() {
 		text := scanner.Text()
 		if strings.Contains(text, "seeds:") {
 			seeds = getNums(strings.Split(text, ":")[1], 10)
+			continue
 		}
+		
 	}
 
 	fmt.Println(seeds)
